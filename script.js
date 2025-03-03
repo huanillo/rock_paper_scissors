@@ -8,13 +8,13 @@ function getRandom(){
 }
 function getComputerChoice(){
     //IF getComputerChoice is 0 -> Rock
-    let choice = getRandom();
-    if (choice === 0){
+    let computerChoice = getRandom();
+    if (computerChoice === 0){
         return "rock";
     }
     
     //IF getComputerChoice is 1 -> Paper
-    else if (choice === 1){
+    else if (computerChoice === 1){
         return "paper";
     }
     //IF getComputerChoice is 2 -> Scissors
@@ -28,13 +28,13 @@ console.log(getComputerChoice());
 //TAKE the human choice. Function name: getHumanChoice
 function getHumanChoice(){
    
-    //PROMPT user to write a choice
+    //PROMPT user to write a choice and make it case-insensitive.
+    let humanChoice = prompt("Rock, paper or scissors?").toLowerCase();
     
-    //TAKE that choice and make it case-insensitive
-   
     //RETURN that choice
+    return humanChoice;
 }
-
+console.log(getHumanChoice());
 //COMPARE both choices to know who wins
 
 //TRACK players score. Functions name: humanScore and computerScore. 
