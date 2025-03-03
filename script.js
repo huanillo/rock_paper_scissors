@@ -22,20 +22,58 @@ function getComputerChoice(){
         return "scissors";
     }
 }
-console.log(getComputerChoice());
+
 
 
 //TAKE the human choice. Function name: getHumanChoice
 function getHumanChoice(){
    
-    //PROMPT user to write a choice and make it case-insensitive.
-    let humanChoice = prompt("Rock, paper or scissors?").toLowerCase();
-    
-    //RETURN that choice
-    return humanChoice;
-}
-console.log(getHumanChoice());
-//COMPARE both choices to know who wins
+    //PROMPT user to write a choice.
+    let humanChoice = prompt("Rock, paper or scissors?")
 
+    if (!humanChoice) {  // if is null or empty 
+        return "Invalid choice";  
+    }
+
+    //RETURN that choice and make it case-insensitive.
+    return humanChoice.toLowerCase();;
+}
+
+
+//COMPARE both choices to know who wins
+function  playRound(){
+
+    let human = getHumanChoice();
+    if ((human != "paper") && (human != "rock") && (human != "scissors")){  // No prompt, we finish
+        return "No valid choice made.";  
+    }
+    let computer = getComputerChoice();
+    console.log("Human chose:", human);
+    console.log("Computer chose:", computer);
+
+    if (human === "rock" && computer === "paper"){
+        return "YOU LOSE! Paper beats rock";
+    }
+    else if (human === "rock" && computer === "scissors"){
+        return "YOU WIN! Rock beats scissors";
+    }
+    else if (human === "paper" && computer === "rock"){
+        return "YOU WIN! Paper beats rock";
+    }
+    else if (human === "paper" && computer === "scissors"){
+        return "YOU LOSE! Scissors beats papers";
+    }
+    else if (human === "scissors" && computer === "rock"){
+        return "YOU LOSE! Rock beats scissors";
+    }
+    else if (human === "scissors" && computer === "paper"){
+        return "YOU WIN! Scissors beats paper";
+    }
+    else {
+        return "TIE!";
+    }
+}
+
+console.log(playRound());
 //TRACK players score. Functions name: humanScore and computerScore. 
 //Initialize those variables with a value of 0.
