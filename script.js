@@ -1,6 +1,39 @@
-/*Rock, paper, scissor game against the computer. 
-Computer has to take a random choice between rock, paper or scissors, also, it has to 
-get our choice and calculate the winner.*/
+function addElement() {
+    // Create continer for buttons
+    const newDiv = document.createElement("div");
+
+    // Create rock, paper and scissors buttons
+    const rockBtn = document.createElement("button");
+    rockBtn.textContent = "Rock";
+    rockBtn.addEventListener("click", () => playRound("rock"));
+  
+    const paperBtn = document.createElement("button");
+    paperBtn.textContent = "Paper";
+    paperBtn.addEventListener("click", () => playRound("paper"));
+  
+    const scissorsBtn = document.createElement("button");
+    scissorsBtn.textContent = "Scissors";
+    scissorsBtn.addEventListener("click", () => playRound("scissors"));
+  
+    // Add buttons to div
+    newDiv.appendChild(rockBtn);
+    newDiv.appendChild(paperBtn);
+    newDiv.appendChild(scissorsBtn);
+  
+    // Add buttons div to body
+    document.body.appendChild(newDiv);
+
+    // Create container for results
+    const resultsDiv = document.createElement("div");
+    resultsDiv.id = "results";  // ID to access later
+    resultsDiv.style.marginTop = "20px";
+    resultsDiv.style.fontSize = "20px";
+    document.body.appendChild(resultsDiv); // Add to body
+  }
+  
+  // Call the function so the buttons appear when the pages loads
+  addElement();
+
 
 //RETURN rock, paper or scissors randomly. Function name: getComputerChoice
 function getRandom(){
@@ -23,80 +56,51 @@ function getComputerChoice(){
     }
 }
 
-
-
-//TAKE the human choice. Function name: getHumanChoice
-function getHumanChoice(){
-   
-    //PROMPT user to write a choice.
-    let humanChoice = prompt("Rock, paper or scissors?")
-
-    if (!humanChoice) {  // if is null or empty 
-        return "Invalid choice";  
-    }
-
-    //RETURN that choice and make it case-insensitive.
-    return humanChoice.toLowerCase();;
-}
-
-
+let humanScore = 0;
+let computerScore = 0;
 //COMPARE both choices to know who wins
-function  playRound(){
-
-    let human = getHumanChoice();
-    if ((human !== "paper") && (human !== "rock") && (human !== "scissors")){
-        return "No valid choice made.";  
-    }
+function  playRound(human){
+    let resultMessage;
     let computer = getComputerChoice();
     console.log("Human chose:", human);
     console.log("Computer chose:", computer);
+    if (humanScore === 5 || computerScore === 5) {
+        return; // Used tostop the game if someone gets 5 points
+    }
 
     if (human === "rock" && computer === "paper"){
-        return { message: "YOU LOSE! Paper beats rock", result: 0 };
+        resultMessage = "YOU LOSE! Paper beats rock";
+        computerScore ++;
     }
     else if (human === "rock" && computer === "scissors"){
-        return { message: "YOU WIN! Rock beats scissors", result: 1 };
+        resultMessage = "YOU WIN! Rock beats scissors";
+        humanScore ++;
     }
     else if (human === "paper" && computer === "rock"){
-        return { message: "YOU WIN! Paper beats rock", result: 1 };
+        resultMessage = "YOU WIN! Paper beats rock";
+        humanScore ++;
     }
     else if (human === "paper" && computer === "scissors"){
-        return { message: "YOU LOSE! Scissors beats papers", result: 0 };
+        resultMessage = "YOU LOSE! Scissors beats papers";
+        computerScore ++;
     }
     else if (human === "scissors" && computer === "rock"){
-        return { message: "YOU LOSE! Rock beats scissors", result: 0 };
+        resultMessage = "YOU LOSE! Rock beats scissors";
+        computerScore ++;
     }
     else if (human === "scissors" && computer === "paper"){
-        return { message: "YOU WIN! Scissors beats paper", result: 1 };
+        resultMessage = "YOU WIN! Scissors beats paper";
+        humanScore ++;
     }
     else {
-        return { message: "TIE!", result: 2 };
+        resultMessage = "TIE!";
+    }
+    // Show message on div
+    const resultsDiv = document.getElementById("results");
+    resultsDiv.textContent = `${resultMessage} | Score - You: ${humanScore} | Computer: ${computerScore}`;
+
+    // Checks for winner
+    if (humanScore === 5 || computerScore === 5) {
+    resultsDiv.textContent += humanScore === 5 ? "YOU WIN THE GAME!" : "COMPUTER WINS THE GAME!";
     }
 }
-//TRACK players score. Functions name: humanScore and computerScore. 
-//Initialize those variables with a value of 0.
-
-//CREATE function called playGame that plays 5 rounds and tracks the scores.
-function playGame(){
-    let round = 0;
-    let humanScore = 0;
-    let computerScore = 0;
-
-    while (round < 5 ){
-        let result = playRound();  // Get the result of the round
-        console.log(result.message);  // Show the message of the round
-        if (result.result === 1){
-            humanScore ++;
-        }
-        else if (result.result === 0){
-            computerScore++;
-        }
-        else{
-            computerScore++;
-            humanScore++;
-        }
-            round++
-        }
-    return 'FINAL SCORE: \n Human: ' + humanScore + '\n Computer:' + computerScore;
-}
-console.log(playGame());
