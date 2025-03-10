@@ -97,7 +97,7 @@ function  playRound(human){
     }
     // Show message on div
     const resultsDiv = document.getElementById("results");
-    resultsDiv.textContent = `${resultMessage} | Score - You: ${humanScore} | Computer: ${computerScore}`;
+    resultsDiv.textContent = `${resultMessage} | Score - You: ${humanScore} | Computer: ${computerScore}\n`;
 
     // Checks for winner
     if (humanScore === 5 || computerScore === 5) {
